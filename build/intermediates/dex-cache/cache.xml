@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/jean/Desktop/TestGlobalInnovations/app/libs/DataCollection.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="df095f25878dd6b78e200cd3f27f038668b45394">
+        <dex dex="/home/jean/Desktop/TestGlobalInnovations/app/build/intermediates/pre-dexed/debug/DataCollection_0e0b600c2c85044187e090178a34e869683c2882.jar" />
+    </item>
+
+</items>
