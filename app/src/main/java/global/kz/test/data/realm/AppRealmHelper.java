@@ -1,19 +1,10 @@
 package global.kz.test.data.realm;
 
-import android.content.Context;
-
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dagger.Provides;
-import global.kz.test.data.realm.model.Cities;
-import global.kz.test.di.ApplicationContext;
-import global.kz.test.di.PreferenceInfo;
+import global.kz.test.data.realm.model.City;
 import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
@@ -32,15 +23,15 @@ public class AppRealmHelper implements RealmHelper {
 
 
     @Override
-    public void saveCities(Cities cities) {
+    public void saveCities(City city) {
         mRealm.executeTransaction(realm -> {
-            realm.copyToRealm(cities);
+            realm.copyToRealm(city);
         });
     }
 
     @Override
     public RealmResults getCities() {
 
-        return  mRealm.where(Cities.class).findAll();
+        return  mRealm.where(City.class).findAll();
     }
 }

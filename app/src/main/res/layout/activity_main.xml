@@ -7,13 +7,24 @@
     android:layout_margin="8dp"
     tools:context="global.kz.test.ui.main.MainActivity">
 
+    <TextView
+        android:id="@+id/tv_city_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:gravity="center_horizontal"
+        android:text="ASTANA"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="29sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_city_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -23,17 +34,18 @@
             app:srcCompat="@drawable/sunny" />
 
         <LinearLayout
-            android:layout_margin="8dp"
             android:id="@+id/ll_fah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_weather_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Солнечно" />
+                android:text="Солнечно"
+                android:textSize="18sp" />
 
 
             <LinearLayout
@@ -52,14 +64,13 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&#x00B0;F"
+                    android:text="&#x00B0;C"
                     android:textSize="36sp" />
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -76,49 +87,56 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Скорость ветра" />
+            android:text="Скорость ветра"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView3"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="30" />
+            android:text="30"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" km/s"/>
+            android:text=" km/s"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_pressure"
-        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_wind"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_pres_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Давление" />
+            android:text="Давление"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_pressure"
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="700" />
+            android:text="700"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" mm.ss."/>
+            android:text=" hPa"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

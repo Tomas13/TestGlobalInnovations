@@ -18,7 +18,6 @@ package global.kz.test.di.module;
 import android.app.Application;
 import android.content.Context;
 
-import com.facebook.stetho.okhttp3.BuildConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -40,12 +39,11 @@ import global.kz.test.di.ApplicationContext;
 import global.kz.test.di.PreferenceInfo;
 import global.kz.test.utils.AppConstants;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static global.kz.test.utils.AppConstants.BASE_URL;
 
@@ -141,7 +139,7 @@ public class ApplicationModule {
     @Singleton
     NetworkService provideNetworkService(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         
 //                .baseUrl("http://172.30.223.25:8088/mobiterminal/Terminal.wsdl/")

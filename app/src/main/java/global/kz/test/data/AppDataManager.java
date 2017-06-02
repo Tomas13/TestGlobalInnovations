@@ -2,19 +2,17 @@ package global.kz.test.data;
 
 import android.content.Context;
 
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import global.kz.test.data.network.ApiHelper;
-import global.kz.test.data.network.model.Envelope;
-import global.kz.test.data.network.model.request.RequestEnvelope;
+import global.kz.test.data.network.model.Weather;
 import global.kz.test.data.prefs.PreferencesHelper;
 import global.kz.test.data.realm.RealmHelper;
-import global.kz.test.data.realm.model.Cities;
+import global.kz.test.data.realm.model.City;
 import global.kz.test.di.ApplicationContext;
 import io.realm.RealmResults;
+import rx.Observable;
 
 /**
  * Created by root on 4/12/17.
@@ -52,15 +50,10 @@ public class AppDataManager implements DataManager {
         return mPreferencesHelper;
     }
 
-    @Override
-    public rx.Observable<Envelope> doAuthorizeOnServer(RequestEnvelope requestEnvelope) {
-        return mApiHelper.doAuthorizeOnServer(requestEnvelope);
-    }
-
-    @Override
-    public void saveCity(String city) {
-        mPreferencesHelper.saveCity(city);
-    }
+//    @Override
+//    public void saveCity(String city) {
+//        mPreferencesHelper.saveCity(city);
+//    }
 
 //    @Override
 //    public Set<String> getCities() {
@@ -68,12 +61,17 @@ public class AppDataManager implements DataManager {
 //    }
 
     @Override
-    public void saveCities(Cities cities) {
-        mRealmHelper.saveCities(cities);
+    public void saveCities(City city) {
+        mRealmHelper.saveCities(city);
     }
 
     @Override
     public RealmResults getCities() {
         return mRealmHelper.getCities();
+    }
+
+    @Override
+    public Observable<Weather> getWeather(String cityName, String appId) {
+        return mApiHelper.getWeather(cityName, appId);
     }
 }

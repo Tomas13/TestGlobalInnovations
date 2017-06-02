@@ -16,6 +16,7 @@
 package global.kz.test.ui.main;
 
 
+import global.kz.test.data.network.model.Weather;
 import global.kz.test.ui.base.MvpView;
 
 /**
@@ -24,10 +25,5 @@ import global.kz.test.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
 
-
-    void openScanActivity();
-
-    void openConfigPrinter();
-
-    void openCloseCellActivity();
+    void showWeatherData(Weather weather);
 }

@@ -30,10 +30,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
-    @Override
-    public void saveCity(String city) {
-        mPrefs.edit().putString(PREF_KEY_CITY, city).apply();
-    }
+//    @Override
+//    public void saveCity(String city) {
+//        mPrefs.edit().putString(PREF_KEY_CITY, city).apply();
+//    }
 
 //    @Override
 //    public Set<String> getCities() {

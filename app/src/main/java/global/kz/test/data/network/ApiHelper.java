@@ -1,7 +1,6 @@
 package global.kz.test.data.network;
 
-import global.kz.test.data.network.model.Envelope;
-import global.kz.test.data.network.model.request.RequestEnvelope;
+import global.kz.test.data.network.model.Weather;
 import rx.Observable;
 
 /**
@@ -10,6 +9,6 @@ import rx.Observable;
 
 public interface ApiHelper {
 
-    Observable<Envelope> doAuthorizeOnServer(RequestEnvelope requestEnvelope);
+    Observable<Weather> getWeather(String cityName, String appId);
 
 }

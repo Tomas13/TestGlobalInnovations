@@ -10,7 +10,5 @@ import global.kz.test.ui.base.MvpView;
 
 public interface ChooseCityMvpView extends MvpView {
 
-    void openPrintActivity();
-
     void showCities(ArrayList<String> cities);
 }

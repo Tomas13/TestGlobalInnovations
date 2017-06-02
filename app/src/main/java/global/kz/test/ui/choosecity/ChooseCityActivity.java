@@ -1,6 +1,7 @@
 package global.kz.test.ui.choosecity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Window;
@@ -8,10 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -20,8 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import global.kz.test.R;
-import global.kz.test.data.realm.model.Cities;
+import global.kz.test.data.realm.model.City;
 import global.kz.test.ui.base.BaseActivity;
+import global.kz.test.ui.main.MainActivity;
 
 public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpView {
 
@@ -38,7 +38,7 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_close_cell);
+        setContentView(R.layout.activity_choose_city);
         ButterKnife.bind(this);
 
         getActivityComponent().inject(this);
@@ -48,14 +48,9 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
 
     }
 
-    ArrayList<String> new_cities = new ArrayList<>();
-    ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> new_cities = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
 
-
-    @Override
-    public void openPrintActivity() {
-//        startActivity(this, new PrintActivity());
-    }
 
     @Override
     public void showCities(ArrayList<String> cities) {
@@ -67,7 +62,10 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new_cities);
         lvCities.setAdapter(arrayAdapter);
         lvCities.setOnItemClickListener((parent, view, position, id) -> {
-            Toast.makeText(this, " " + position, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("city", new_cities);
+            intent.putExtra("position", position);
+            startActivity(intent);
         });
     }
 
@@ -80,12 +78,12 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
         Button button = (Button) dialog.findViewById(R.id.btn_dialog_ok);
         button.setOnClickListener(v -> {
             dialog.dismiss();
-            Cities cities = new Cities();
-            cities.setCity(editText.getText().toString());
+            City city = new City();
+            city.setCity(editText.getText().toString());
 
-            presenter.saveCity(cities);
+            presenter.saveCity(city);
 
-            new_cities.add(cities.getCity());
+            new_cities.add(city.getCity());
             arrayAdapter.notifyDataSetChanged();
         });
 

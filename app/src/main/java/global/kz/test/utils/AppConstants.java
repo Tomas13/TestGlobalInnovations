@@ -12,6 +12,9 @@ public class AppConstants {
 
     public static final int ScannerSelectionBarcodeActivity = 1;
 
-    public static final String BASE_URL = "http://172.30.223.25:8088/";
+    public static final String BASE_URL = "http://api.openweathermap.org/";
+
+    public static final String APPID = "784aa9d39d19375f419f7467eff10c01";
+
 
 }

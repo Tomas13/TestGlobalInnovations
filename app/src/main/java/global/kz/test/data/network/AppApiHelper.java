@@ -3,8 +3,7 @@ package global.kz.test.data.network;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import global.kz.test.data.network.model.Envelope;
-import global.kz.test.data.network.model.request.RequestEnvelope;
+import global.kz.test.data.network.model.Weather;
 import rx.Observable;
 
 /**
@@ -17,16 +16,12 @@ public class AppApiHelper implements ApiHelper {
     @Inject
     NetworkService networkService;
 
-    @Override
-    public Observable<Envelope> doAuthorizeOnServer(RequestEnvelope requestEnvelope) {
-        return networkService.requestStateInfoObs(requestEnvelope);
-    }
-
     @Inject
     public AppApiHelper() {
     }
-    //    @Inject
-//    public AppApiHelper(ApiHeader apiHeader) {
-//        mApiHeader = apiHeader;
-//    }
+
+    @Override
+    public Observable<Weather> getWeather(String cityName, String appId) {
+        return networkService.getWeather(cityName, appId);
+    }
 }

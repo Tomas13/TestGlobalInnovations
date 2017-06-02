@@ -9,6 +9,6 @@ import java.util.Set;
 
 public interface PreferencesHelper {
 
-    void saveCity(String city);
+//    void saveCity(String city);
 //    Set<String> getCities();
 }

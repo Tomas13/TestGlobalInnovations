@@ -1,10 +1,8 @@
 package global.kz.test.data.network;
 
-import global.kz.test.data.network.model.Envelope;
-import global.kz.test.data.network.model.request.RequestEnvelope;
-import retrofit2.http.Body;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
+import global.kz.test.data.network.model.Weather;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -13,8 +11,10 @@ import rx.Observable;
 
 public interface NetworkService {
 
-    @POST("mobiterminal/Terminal.wsdl")
-    @Headers("Content-Type: text/xml")
-    Observable<Envelope> requestStateInfoObs(@Body RequestEnvelope requestEnvelope);
+    @GET("data/2.5/weather")
+    Observable<Weather> getWeather(
+            @Query("q") String cityName,
+            @Query("appid") String appId
+    );
 
 }

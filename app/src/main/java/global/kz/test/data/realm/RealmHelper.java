@@ -1,7 +1,6 @@
 package global.kz.test.data.realm;
 
-import global.kz.test.data.realm.model.Cities;
-import io.realm.RealmList;
+import global.kz.test.data.realm.model.City;
 import io.realm.RealmResults;
 
 /**
@@ -10,7 +9,7 @@ import io.realm.RealmResults;
 
 public interface RealmHelper {
 
-    void saveCities(Cities cities);
+    void saveCities(City city);
 
     RealmResults getCities();
 }
