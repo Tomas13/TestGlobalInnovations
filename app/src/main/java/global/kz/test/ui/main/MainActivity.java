@@ -1,6 +1,8 @@
 package global.kz.test.ui.main;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import butterknife.ButterKnife;
 import global.kz.test.R;
 import global.kz.test.data.network.model.Weather;
 import global.kz.test.ui.base.BaseActivity;
+import global.kz.test.ui.choosecity.ChooseCityActivity;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
@@ -66,6 +69,46 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         tvPressure.setText(String.valueOf(weather.getMain().getPressure()));
 
+        switch (weather.getWeather().get(0).getDescription()) {
+            case "clear sky":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.sunny));
+                break;
+            case "scattered clouds":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.cloudy));
+                break;
+            case "broken clouds":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.cloudy));
+                break;
+            case "light intensity shower rain":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.rainy));
+                break;
+
+
+        }
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //меню для перехода в активити выбора города
+        if (id == R.id.menu_choose_city) {
+            startActivity(this, new ChooseCityActivity());
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

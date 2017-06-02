@@ -14,4 +14,6 @@ public interface ChooseCityMvpPresenter<V extends ChooseCityMvpView> extends Mvp
     void saveCity(City city);
 
     void loadCities();
+
+    void loadWeather(String cityName);
 }

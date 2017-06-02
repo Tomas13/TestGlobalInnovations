@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import global.kz.test.R;
+import global.kz.test.data.network.model.Weather;
 import global.kz.test.data.realm.model.City;
 import global.kz.test.ui.base.BaseActivity;
 import global.kz.test.ui.main.MainActivity;
@@ -67,7 +68,23 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
             intent.putExtra("position", position);
             startActivity(intent);
         });
+
+        loadWeatherForCities();
+
     }
+
+    @Override
+    public void showWeatherData(Weather weather) {
+
+    }
+
+    private void loadWeatherForCities() {
+
+        for (String cityName: new_cities) {
+            presenter.loadWeather(cityName);
+        }
+    }
+
 
     @OnClick(R.id.floatingActionButton)
     public void onViewClicked() {

@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import global.kz.test.data.DataManager;
+import global.kz.test.data.network.model.Weather;
 import global.kz.test.data.realm.model.City;
 import global.kz.test.ui.base.BasePresenter;
+import global.kz.test.utils.AppConstants;
 import io.realm.RealmQuery;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by root on 4/14/17.
@@ -54,12 +59,30 @@ public class ChooseCityPresenter<V extends ChooseCityMvpView> extends BasePresen
             citiesArrayList.add(city.getCity());
         }
 
-
         getMvpView().showCities(citiesArrayList);
-//        Set<String> cities = getDataManager().getCities();
-//        if (cities!=null)
-//            getMvpView().onErrorToast(cities.toString());
     }
 
 
+    @Override
+    public void loadWeather(String cityName) {
+
+        getMvpView().showLoading();
+
+        Observable<Weather> weatherObservable = getDataManager().getWeather(cityName, AppConstants.APPID);
+
+        weatherObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weather -> {
+
+                            getMvpView().showWeatherData(weather);
+                            getMvpView().hideLoading();
+                        },
+                        throwable -> {
+                            getMvpView().onErrorToast(throwable.getMessage());
+                            getMvpView().hideLoading();
+
+                        });
+    }
 }
+
