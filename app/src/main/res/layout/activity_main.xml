@@ -8,6 +8,7 @@
     tools:context="global.kz.test.ui.main.MainActivity">
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/tv_city_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +92,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_wind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -102,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" km/s"
+            android:text=" m/s"
             android:textSize="20sp" />
     </LinearLayout>
 

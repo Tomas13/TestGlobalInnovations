@@ -68,7 +68,8 @@ public class ChooseCityPresenter<V extends ChooseCityMvpView> extends BasePresen
 
         getMvpView().showLoading();
 
-        Observable<Weather> weatherObservable = getDataManager().getWeather(cityName, AppConstants.APPID);
+        Observable<Weather> weatherObservable = getDataManager().getWeather(cityName, AppConstants.APPID, "metric");
+
 
         weatherObservable
                 .subscribeOn(Schedulers.io())
@@ -83,6 +84,11 @@ public class ChooseCityPresenter<V extends ChooseCityMvpView> extends BasePresen
                             getMvpView().hideLoading();
 
                         });
+    }
+
+    @Override
+    public void removeLVItem(int position) {
+        getDataManager().removeRealmItem(position);
     }
 }
 

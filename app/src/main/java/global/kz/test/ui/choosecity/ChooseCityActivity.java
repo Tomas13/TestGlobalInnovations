@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,8 +20,10 @@ import butterknife.OnClick;
 import global.kz.test.R;
 import global.kz.test.data.network.model.Weather;
 import global.kz.test.data.realm.model.City;
+import global.kz.test.ui.adapters.ListViewAdapter;
 import global.kz.test.ui.base.BaseActivity;
 import global.kz.test.ui.main.MainActivity;
+import global.kz.test.utils.SwipeDismissListViewTouchListener;
 
 public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpView {
 
@@ -50,8 +51,8 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
     }
 
     private ArrayList<String> new_cities = new ArrayList<>();
-    private ArrayAdapter<String> arrayAdapter;
-
+    ArrayList<Weather> weatherArrayList;
+    ListViewAdapter listViewAdapter;
 
     @Override
     public void showCities(ArrayList<String> cities) {
@@ -60,27 +61,54 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
             new_cities.add(city);
         }
 
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new_cities);
-        lvCities.setAdapter(arrayAdapter);
+        weatherArrayList = new ArrayList<>();
+
+        listViewAdapter = new ListViewAdapter(this, weatherArrayList);
+        lvCities.setAdapter(listViewAdapter);
         lvCities.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("city", new_cities);
             intent.putExtra("position", position);
             startActivity(intent);
+            finish();
         });
 
         loadWeatherForCities();
 
+
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        lvCities,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    listViewAdapter.remove(listViewAdapter.getItem(position));
+                                    presenter.removeLVItem(position);
+                                }
+                                listViewAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+        lvCities.setOnTouchListener(touchListener);
     }
 
     @Override
     public void showWeatherData(Weather weather) {
 
+        weatherArrayList.add(weather);
+        listViewAdapter.notifyDataSetChanged();
     }
 
     private void loadWeatherForCities() {
 
-        for (String cityName: new_cities) {
+        weatherArrayList.clear();
+        for (String cityName : new_cities) {
             presenter.loadWeather(cityName);
         }
     }
@@ -94,14 +122,18 @@ public class ChooseCityActivity extends BaseActivity implements ChooseCityMvpVie
         EditText editText = (EditText) dialog.findViewById(R.id.et_city);
         Button button = (Button) dialog.findViewById(R.id.btn_dialog_ok);
         button.setOnClickListener(v -> {
-            dialog.dismiss();
-            City city = new City();
-            city.setCity(editText.getText().toString());
+            if (editText.getText().length() > 0) {
+                dialog.dismiss();
+                City city = new City();
+                city.setCity(editText.getText().toString());
 
-            presenter.saveCity(city);
-
-            new_cities.add(city.getCity());
-            arrayAdapter.notifyDataSetChanged();
+                presenter.saveCity(city);
+                new_cities.add(city.getCity());
+                listViewAdapter.notifyDataSetChanged();
+                loadWeatherForCities();
+            } else {
+                onErrorToast("Пустое название");
+            }
         });
 
         dialog.show();

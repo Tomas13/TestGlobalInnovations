@@ -27,7 +27,7 @@ public class MainPresenter<V extends MainMvpView> extends BasePresenter<V>
 
         getMvpView().showLoading();
 
-        Observable<Weather> weatherObservable = getDataManager().getWeather(cityName, AppConstants.APPID);
+        Observable<Weather> weatherObservable = getDataManager().getWeather(cityName, AppConstants.APPID, "metric");
 
         weatherObservable
                 .subscribeOn(Schedulers.io())

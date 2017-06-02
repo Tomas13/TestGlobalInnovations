@@ -71,7 +71,12 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<Weather> getWeather(String cityName, String appId) {
-        return mApiHelper.getWeather(cityName, appId);
+    public void removeRealmItem(int position) {
+        mRealmHelper.removeRealmItem(position);
+    }
+
+    @Override
+    public Observable<Weather> getWeather(String cityName, String appId, String units) {
+        return mApiHelper.getWeather(cityName, appId, units);
     }
 }

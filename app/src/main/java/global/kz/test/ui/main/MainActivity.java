@@ -34,6 +34,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     LinearLayout llPressure;
     @BindView(R.id.tv_city_title)
     TextView tvCityTitle;
+    @BindView(R.id.tv_wind)
+    TextView tvWind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         tvWeatherType.setText(weather.getWeather().get(0).getDescription());
 
         //переводим Кельвины в Цельсии
-        int celsius = (int) (weather.getMain().getTemp() - 273.15F);
+//        int celsius = (int) (weather.getMain().getTemp() - 273.15F);
 
-        tvDegrees.setText(String.valueOf(celsius));
+        tvDegrees.setText(String.valueOf(weather.getMain().getTemp()));
 
+        tvWind.setText(String.valueOf(weather.getWind().getSpeed()));
         tvPressure.setText(String.valueOf(weather.getMain().getPressure()));
 
         switch (weather.getWeather().get(0).getDescription()) {
@@ -81,6 +84,13 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 break;
             case "light intensity shower rain":
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.rainy));
+                break;
+
+            case "shower rain":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.rainy));
+                break;
+            case "few clouds":
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.cloudy));
                 break;
 
 
@@ -105,6 +115,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         //меню для перехода в активити выбора города
         if (id == R.id.menu_choose_city) {
             startActivity(this, new ChooseCityActivity());
+
             return true;
         }
 

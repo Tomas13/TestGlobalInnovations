@@ -9,6 +9,6 @@ import rx.Observable;
 
 public interface ApiHelper {
 
-    Observable<Weather> getWeather(String cityName, String appId);
+    Observable<Weather> getWeather(String cityName, String appId, String units);
 
 }

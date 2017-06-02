@@ -21,7 +21,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Observable<Weather> getWeather(String cityName, String appId) {
-        return networkService.getWeather(cityName, appId);
+    public Observable<Weather> getWeather(String cityName, String appId, String units) {
+        return networkService.getWeather(cityName, appId, units);
     }
 }

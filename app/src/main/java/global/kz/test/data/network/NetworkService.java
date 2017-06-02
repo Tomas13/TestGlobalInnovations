@@ -14,7 +14,8 @@ public interface NetworkService {
     @GET("data/2.5/weather")
     Observable<Weather> getWeather(
             @Query("q") String cityName,
-            @Query("appid") String appId
+            @Query("appid") String appId,
+            @Query("units") String units
     );
 
 }

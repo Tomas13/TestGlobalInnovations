@@ -31,7 +31,13 @@ public class AppRealmHelper implements RealmHelper {
 
     @Override
     public RealmResults getCities() {
+        return mRealm.where(City.class).findAll();
+    }
 
-        return  mRealm.where(City.class).findAll();
+    @Override
+    public void removeRealmItem(int position) {
+        mRealm.executeTransaction(realm -> {
+            realm.where(City.class).findAll().deleteFromRealm(position);
+        });
     }
 }
